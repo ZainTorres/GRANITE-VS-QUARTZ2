@@ -55,8 +55,8 @@
     "zod": "^3.24.4"
   },
   "scripts": {
-    "start": "craco start",
-    "build": "craco build",
+    "start": "serve -s public -l 3000",
+    "build": "craco build", 
     "test": "craco test"
   },
   "browserslist": {
