@@ -16,7 +16,12 @@ import {
   Users,
   Zap,
   Shield,
-  Sparkles
+  Sparkles,
+  Quote,
+  ChevronRight,
+  Facebook,
+  Instagram,
+  Mail
 } from 'lucide-react';
 import { 
   heroContent, 
@@ -87,6 +92,7 @@ export const LandingPage = () => {
           <a href="#usecases" className="text-gray-700 hover:text-pink-500 transition-colors">Use Cases</a>
           <a href="#faq" className="text-gray-700 hover:text-pink-500 transition-colors">FAQ</a>
           <a href="#testimonials" className="text-gray-700 hover:text-pink-500 transition-colors">Reviews</a>
+          <a href="#service-areas" className="text-gray-700 hover:text-pink-500 transition-colors">Service Areas</a>
         </nav>
         
         <ContactModal
@@ -361,12 +367,307 @@ export const LandingPage = () => {
     </section>
   );
 
+  const FAQSection = () => (
+    <section id="faq" className="py-20 bg-gray-50" data-animate>
+      <div className="container mx-auto px-6">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            Frequently Asked <span className="bg-gradient-to-r from-orange-500 to-orange-400 bg-clip-text text-transparent">Questions</span>
+          </h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Get answers to common questions about granite and quartz countertops in Kansas City
+          </p>
+        </div>
+
+        <div className="max-w-3xl mx-auto">
+          <Accordion type="single" collapsible className="space-y-4">
+            {faqData.map((faq, index) => (
+              <AccordionItem 
+                key={index} 
+                value={`item-${index}`}
+                className="bg-white/60 backdrop-blur-lg rounded-2xl border-0 shadow-lg px-6 py-2"
+              >
+                <AccordionTrigger className="text-left font-semibold text-gray-900 hover:text-pink-500 transition-colors py-6">
+                  {faq.question}
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-700 pb-6 leading-relaxed">
+                  {faq.answer}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+
+        <div className="text-center mt-12">
+          <p className="text-gray-600 mb-6">Still have questions? We're here to help!</p>
+          <ContactModal
+            trigger={
+              <Button className="bg-gradient-to-r from-pink-500 to-violet-500 hover:from-pink-600 hover:to-violet-600 text-white font-semibold px-8 py-3 rounded-xl transform hover:scale-105 transition-all duration-300">
+                Ask Our Experts
+              </Button>
+            }
+          />
+        </div>
+      </div>
+    </section>
+  );
+
+  const TestimonialsSection = () => (
+    <section id="testimonials" className="py-20" data-animate>
+      <div className="container mx-auto px-6">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            What Our <span className="bg-gradient-to-r from-orange-500 to-orange-400 bg-clip-text text-transparent">Kansas City</span> Customers Say
+          </h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Real reviews from satisfied customers across the Kansas City metro area
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-8">
+          {testimonials.map((testimonial, index) => (
+            <Card key={index} className="bg-white/60 backdrop-blur-lg border-0 shadow-lg rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300">
+              <CardContent className="p-8">
+                <div className="mb-6">
+                  <Quote className="w-8 h-8 text-pink-500 mb-4" />
+                  <p className="text-gray-700 leading-relaxed mb-4">{testimonial.text}</p>
+                  
+                  <div className="flex items-center mb-4">
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
+                    ))}
+                  </div>
+                </div>
+                
+                <div className="border-t border-gray-200 pt-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="font-semibold text-gray-900">{testimonial.name}</p>
+                      <p className="text-sm text-gray-600 flex items-center">
+                        <MapPin className="w-4 h-4 mr-1" />
+                        {testimonial.location}
+                      </p>
+                    </div>
+                    <Badge className={`${
+                      testimonial.material === 'Granite' 
+                        ? 'bg-orange-100 text-orange-800' 
+                        : 'bg-purple-100 text-purple-800'
+                    } font-semibold`}>
+                      {testimonial.material}
+                    </Badge>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+
+  const ServiceAreaSection = () => (
+    <section id="service-areas" className="py-20 bg-gray-50" data-animate>
+      <div className="container mx-auto px-6">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            Serving the Greater <span className="bg-gradient-to-r from-orange-500 to-orange-400 bg-clip-text text-transparent">Kansas City Area</span>
+          </h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Professional countertop installation across Kansas City metro from our Olathe location
+          </p>
+        </div>
+
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <Card className="bg-white/60 backdrop-blur-lg border-0 shadow-lg rounded-2xl overflow-hidden">
+              <CardContent className="p-8">
+                <h3 className="text-2xl font-bold text-gray-900 mb-6">Our Service Areas</h3>
+                
+                <div className="grid grid-cols-2 gap-4 mb-8">
+                  {serviceAreas.map((area, index) => (
+                    <div key={index} className="flex items-center space-x-2 p-3 bg-white rounded-lg shadow-sm">
+                      <MapPin className="w-4 h-4 text-pink-500 flex-shrink-0" />
+                      <span className="text-gray-700 font-medium">{area}</span>
+                    </div>
+                  ))}
+                </div>
+                
+                <div className="space-y-4">
+                  <div className="flex items-center space-x-3 p-4 bg-gradient-to-r from-pink-50 to-violet-50 rounded-xl border border-pink-100">
+                    <Zap className="w-6 h-6 text-pink-500" />
+                    <div>
+                      <p className="font-semibold text-gray-900">Free In-Home Consultation</p>
+                      <p className="text-sm text-gray-600">We come to you with samples and measurements</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center space-x-3 p-4 bg-gradient-to-r from-pink-50 to-violet-50 rounded-xl border border-pink-100">
+                    <Hammer className="w-6 h-6 text-pink-500" />
+                    <div>
+                      <p className="font-semibold text-gray-900">Professional Installation</p>
+                      <p className="text-sm text-gray-600">Expert fabrication at our Olathe facility</p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+          
+          <div>
+            {/* Custom Kansas City Service Area Map */}
+            <Card className="bg-white/60 backdrop-blur-lg border-0 shadow-lg rounded-2xl overflow-hidden">
+              <CardContent className="p-8">
+                <div className="text-center mb-6">
+                  <h3 className="text-xl font-bold text-gray-900">Kansas City Metro Coverage</h3>
+                  <p className="text-gray-600">30-mile radius from our Olathe location</p>
+                </div>
+                
+                <div className="relative bg-gradient-to-br from-blue-100 to-purple-100 rounded-xl p-8 aspect-square">
+                  {/* Central Olathe Location */}
+                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                    <div className="w-6 h-6 bg-gradient-to-r from-pink-500 to-violet-500 rounded-full animate-pulse"></div>
+                    <p className="text-xs font-semibold text-gray-900 mt-1 text-center">Olathe</p>
+                  </div>
+                  
+                  {/* Service Radius Circle */}
+                  <div className="absolute inset-4 border-2 border-pink-300 rounded-full opacity-60"></div>
+                  <div className="absolute inset-8 border border-pink-200 rounded-full opacity-40"></div>
+                  
+                  {/* Key Cities */}
+                  <div className="absolute top-1/4 left-1/3 transform -translate-x-1/2 -translate-y-1/2">
+                    <div className="w-3 h-3 bg-orange-400 rounded-full"></div>
+                    <p className="text-xs text-gray-700 mt-1">Kansas City</p>
+                  </div>
+                  
+                  <div className="absolute top-1/3 right-1/4 transform translate-x-1/2 -translate-y-1/2">
+                    <div className="w-3 h-3 bg-orange-400 rounded-full"></div>
+                    <p className="text-xs text-gray-700 mt-1">Overland Park</p>
+                  </div>
+                  
+                  <div className="absolute bottom-1/3 left-1/4 transform -translate-x-1/2 translate-y-1/2">
+                    <div className="w-3 h-3 bg-orange-400 rounded-full"></div>
+                    <p className="text-xs text-gray-700 mt-1">Shawnee</p>
+                  </div>
+                  
+                  <div className="absolute bottom-1/4 right-1/3 transform translate-x-1/2 translate-y-1/2">
+                    <div className="w-3 h-3 bg-orange-400 rounded-full"></div>
+                    <p className="text-xs text-gray-700 mt-1">Lee's Summit</p>
+                  </div>
+                </div>
+                
+                <div className="mt-6 text-center">
+                  <p className="text-sm text-gray-600 mb-4">
+                    <strong>Coverage Area:</strong> 30-mile radius including Johnson County, Jackson County, and surrounding areas
+                  </p>
+                  <ContactModal
+                    trigger={
+                      <Button variant="outline" className="border-2 border-pink-300 text-pink-700 hover:bg-pink-50">
+                        Check Service Availability
+                      </Button>
+                    }
+                  />
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+
+  const Footer = () => (
+    <footer className="bg-gray-900 text-white py-16">
+      <div className="container mx-auto px-6">
+        <div className="grid md:grid-cols-4 gap-8 mb-12">
+          <div>
+            <div className="flex items-center space-x-2 mb-6">
+              <div className="w-8 h-8 bg-gradient-to-r from-pink-500 to-violet-500 rounded-lg flex items-center justify-center">
+                <Sparkles className="w-5 h-5 text-white" />
+              </div>
+              <span className="text-xl font-bold">{companyInfo.name}</span>
+            </div>
+            <p className="text-gray-400 leading-relaxed mb-6">
+              Kansas City's premier destination for granite and quartz countertops. 
+              Expert installation, competitive pricing, and exceptional customer service.
+            </p>
+            <div className="flex space-x-4">
+              <Facebook className="w-5 h-5 text-gray-400 hover:text-pink-500 cursor-pointer transition-colors" />
+              <Instagram className="w-5 h-5 text-gray-400 hover:text-pink-500 cursor-pointer transition-colors" />
+              <Mail className="w-5 h-5 text-gray-400 hover:text-pink-500 cursor-pointer transition-colors" />
+            </div>
+          </div>
+          
+          <div>
+            <h4 className="text-lg font-semibold mb-6">Services</h4>
+            <ul className="space-y-3 text-gray-400">
+              <li><a href="#" className="hover:text-white transition-colors">Granite Countertops Kansas City</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Quartz Countertops Olathe</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Kitchen Remodeling</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Countertop Installation</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Free Consultation</a></li>
+            </ul>
+          </div>
+          
+          <div>
+            <h4 className="text-lg font-semibold mb-6">Service Areas</h4>
+            <ul className="space-y-3 text-gray-400">
+              <li>Olathe, KS</li>
+              <li>Overland Park, KS</li>
+              <li>Kansas City, MO</li>
+              <li>Shawnee, KS</li>
+              <li>Lee's Summit, MO</li>
+              <li>Lenexa, KS</li>
+            </ul>
+          </div>
+          
+          <div>
+            <h4 className="text-lg font-semibold mb-6">Contact Info</h4>
+            <div className="space-y-4 text-gray-400">
+              <div className="flex items-center space-x-3">
+                <Phone className="w-5 h-5 text-pink-500" />
+                <span>{companyInfo.phone}</span>
+              </div>
+              <div className="flex items-center space-x-3">
+                <Mail className="w-5 h-5 text-pink-500" />
+                <span>{companyInfo.email}</span>
+              </div>
+              <div className="flex items-start space-x-3">
+                <MapPin className="w-5 h-5 text-pink-500 mt-1" />
+                <span>{companyInfo.address}</span>
+              </div>
+              <div className="flex items-center space-x-3">
+                <Clock className="w-5 h-5 text-pink-500" />
+                <span>{companyInfo.hours}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div className="border-t border-gray-800 pt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+            <p className="text-gray-400 text-center md:text-left">
+              © 2024 {companyInfo.name}. All rights reserved. | Professional countertop installation in Kansas City metro.
+            </p>
+            <div className="flex space-x-6 text-gray-400">
+              <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
+              <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+
   return (
     <div className="min-h-screen bg-white">
       <Header />
       <Hero />
       <ComparisonSection />
       <UseCasesSection />
+      <FAQSection />
+      <TestimonialsSection />
+      <ServiceAreaSection />
+      <Footer />
       <FloatingCTA />
     </div>
   );
